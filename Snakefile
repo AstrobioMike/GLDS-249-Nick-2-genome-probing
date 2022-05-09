@@ -67,7 +67,7 @@ rule all:
         bowtie2_indexes = expand(os.path.join(config["bowtie2_indexes_dir"], "{genome}.1.bt2"), genome = genome_ID_list),
         bam_files = expand(os.path.join(config["bam_files_dir"] + "{sample}-to-{genome}.bam"), sample = sample_ID_list, genome = genome_ID_list),
         profile_dbs = expand(os.path.join(config["profile_dbs_dir"], "{sample}-to-{genome}-profile/PROFILE.db"), sample = sample_ID_list, genome = genome_ID_list),
-        merged_profiles = expand(os.path.join(config["profile_dbs_dir"], "{genome}-merged-profile"), genome = genome_ID_list)
+        merged_profiles = expand(os.path.join(config["profile_dbs_dir"], "{genome}-merged-profile", "PROFILE.db"), genome = genome_ID_list)
 
 
 rule genbank_to_anvio:
@@ -108,7 +108,7 @@ rule make_and_annotate_contigs_db:
                                   
         anvi-import-functions -c {output.contigs_db} -i {input.gene_functions} >> {log} 2>&1
 
-        anvi-run-hmms -T {params.num_threads} -I Bacteria_71 -c {output.contigs_db} >> {log} 2>&1
+        anvi-run-hmms -T {params.num_threads} -I Bacteria_71,Ribosomal_RNA_16S -c {output.contigs_db} >> {log} 2>&1
 
         anvi-scan-trnas -T {params.num_threads} -c {output.contigs_db} >> {log} 2>&1
 
@@ -178,33 +178,35 @@ rule anvi_profile:
         """
 
 
-rule anvi_merge:
+rule anvi_merge_and_summarize:
     input:
         contigs_db = os.path.join(config["contigs_dbs_dir"], "{genome}-contigs.db"),
         profiles = lambda wildcards: profiles_dict[wildcards.genome]
     output:
-        merged_profile = os.path.join(config["profile_dbs_dir"], "{genome}-merged-profile")
+        merged_profile = os.path.join(config["profile_dbs_dir"], "{genome}-merged-profile", "PROFILE.db")
+    params:
+        merged_profile_dir = config["profile_dbs_dir"] + "{genome}-merged-profile"
     log:
-        log = config["logs_dir"] + "anvi_merge-{genome}.log"
+        log = config["logs_dir"] + "anvi_merge_and_summarize-{genome}.log"
     shell:
         """
         name=$(printf {wildcards.genome} | tr "[\-.]" "_")
 
-        anvi-merge -c {input.contigs_db} -o {output.merged_profile} -S ${{name}} --skip-hierarchical-clustering {input.profiles} > {log} 2>&1
+        anvi-merge -c {input.contigs_db} -o {params.merged_profile_dir} -S ${{name}} --skip-hierarchical-clustering {input.profiles} > {log} 2>&1
         
         # getting split default order
-        anvi-export-table --table splits_basic_info -f split {input.contigs_db} -o {wildcards.genome}-split-order.tmp
+        anvi-export-table --table splits_basic_info -f split {input.contigs_db} -o {wildcards.genome}-split-order.tmp > {log} 2>&1
 
         tail -n +2 {wildcards.genome}-split-order.tmp > {wildcards.genome}-split-order.txt
         rm {wildcards.genome}-split-order.tmp
 
         # adding to merged profile db
-        anvi-import-items-order -i {wildcards.genome}-split-order.txt -p {output.merged_profile}/PROFILE.db --make-default --name default
+        anvi-import-items-order -i {wildcards.genome}-split-order.txt -p {output.merged_profile} --make-default --name default > {log} 2>&1
+
+        # adding default collection
+        anvi-script-add-default-collection -p {output.merged_profile} -c {input.contigs_db} > {log} 2>&1
+
+        # summarizing
+        anvi-summarize -p {output.merged_profile} -c {input.contigs_db} --init-gene-coverages -o {wildcards.genome}-summary -C DEFAULT > {log} 2>&1
         """
 
-
-rule clean_all:
-    shell:
-        """
-        rm -rf {dirs_to_create}
-        """
