@@ -166,14 +166,15 @@ rule anvi_profile:
         profile_db = os.path.join(config["profile_dbs_dir"], "{sample}-to-{genome}-profile/PROFILE.db")
     params:
         profile_db_dir = os.path.join(config["profile_dbs_dir"], "{sample}-to-{genome}-profile"),
-        name = "{genome}".replace(".", "_"),
         num_threads = config["general_anvio_threads"]
     log:
         log = config["logs_dir"] + "anvi_profile-{sample}-to-{genome}.log"
     shell:
         """
-        anvi-profile -c {input.contigs_db} -i {input.bam} -o {params.profile_db_dir} -S {params.name} \
-                     --cluster-contigs --min-contig-length 500 -T {params.num_threads} > {log} 2>&1
+        name=$(printf {wildcards.sample} | tr "[\-.]" "_")
+        anvi-profile -c {input.contigs_db} -i {input.bam} -o {params.profile_db_dir} -S ${{name}} \
+                     --cluster-contigs --min-contig-length 500 -T {params.num_threads} \
+                     --overwrite-output-destinations > {log} 2>&1
         """
 
 
@@ -183,22 +184,22 @@ rule anvi_merge:
         profiles = lambda wildcards: profiles_dict[wildcards.genome]
     output:
         merged_profile = os.path.join(config["profile_dbs_dir"], "{genome}-merged-profile")
-    params:
-        name = "{genome}".replace(".", "_")
     log:
         log = config["logs_dir"] + "anvi_merge-{genome}.log"
     shell:
         """
-        anvi-merge -c {input.contigs_db} -o {output.merged_profile} -S {params.name} --skip-hierarchical-clustering {input.profiles} > {log} 2>&1
+        name=$(printf {wildcards.genome} | tr "[\-.]" "_")
+
+        anvi-merge -c {input.contigs_db} -o {output.merged_profile} -S ${{name}} --skip-hierarchical-clustering {input.profiles} > {log} 2>&1
         
         # getting split default order
-        anvi-export-table --table splits_basic_info -f split {input.contigs_db} -o {params.name}-split-order.tmp
+        anvi-export-table --table splits_basic_info -f split {input.contigs_db} -o {wildcards.genome}-split-order.tmp
 
-        tail -n +2 {params.name}-split-order.tmp > {params.name}-split-order.txt
-        rm {params.name}-split-order.tmp
+        tail -n +2 {wildcards.genome}-split-order.tmp > {wildcards.genome}-split-order.txt
+        rm {wildcards.genome}-split-order.tmp
 
         # adding to merged profile db
-        anvi-import-items-order -i {params.name}-split-order.txt -p {output.merged_profile} --make-default --name default
+        anvi-import-items-order -i {wildcards.genome}-split-order.txt -p {output.merged_profile}/PROFILE.db --make-default --name default
         """
 
 

@@ -1,0 +1,56 @@
+[08 May 22 19:49:58] profiler_version .............................: 38
+[08 May 22 19:49:58] output_dir ...................................: /home/mike/NASA/GeneLab/GLDS-249/Nick-genome-check/profile-dbs/GCF_005121165.2-merged-profile
+[08 May 22 19:49:58] sample_id ....................................: GCF_005121165_2
+[08 May 22 19:49:58] description ..................................: None
+[08 May 22 19:49:58] profile_db ...................................: /home/mike/NASA/GeneLab/GLDS-249/Nick-genome-check/profile-dbs/GCF_005121165.2-merged-profile/PROFILE.db
+[08 May 22 19:49:58] merged .......................................: True
+[08 May 22 19:49:58] contigs_db_hash ..............................: hash7d86ca34
+[08 May 22 19:49:58] num_runs_processed ...........................: 562
+[08 May 22 19:49:58] merged_sample_ids ............................: FLT_ISS_T_Rep1_F3, FLT_ISS_T_Rep2_F4, FLT_ISS_T_Rep3_F5, FLT_ISS_T_Rep4_F7, FLT_ISS_T_Rep5_F8, FLT_ISS_T_Rep6_F9, FLT_ISS_T_Rep7_F10, FLT_LAR_Rep1_F1,
+                                                FLT_LAR_Rep2_F2, FLT_LAR_Rep3_F3, FLT_LAR_Rep4_F4, FLT_LAR_Rep5_F5, FLT_LAR_Rep6_F6, FLT_LAR_Rep7_F7, FLT_LAR_Rep8_F9, FLT_LAR_Rep9_F10, GC_ISS_T_Rep1_G2,
+                                                GC_ISS_T_Rep2_G3, GC_ISS_T_Rep3_G4, GC_ISS_T_Rep4_G5, GC_ISS_T_Rep5_G6, GC_ISS_T_Rep6_G7, GC_ISS_T_Rep7_G8, GC_ISS_T_Rep8_G9, GC_ISS_T_Rep9_G10, GC_LAR_Rep1_G2,
+                                                GC_LAR_Rep2_G3, GC_LAR_Rep3_G4, GC_LAR_Rep4_G5, GC_LAR_Rep5_G8, GC_LAR_Rep6_G9, GC_LAR_Rep7_G10
+[08 May 22 19:49:58] fetch_filter .................................: None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None,
+                                                None, None, None, None, None, None
+[08 May 22 19:49:58] min_percent_identity .........................: 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
+[08 May 22 19:49:58] Common layer additional data keys ............: default
+[08 May 22 19:49:58] total_reads_mapped ...........................: 1722, 2276, 847, 269, 3154, 959, 652, 5504, 8902, 11323, 2037, 2389, 6265, 6664, 6500, 8444, 251, 544, 1153, 969, 416, 954, 1288, 2091, 459, 2495, 3082, 1117,
+                                                2704, 5285, 4173, 7122
+[08 May 22 19:49:58] cmd_line .....................................: /home/mike/miniconda3/envs/anvio/bin/anvi-merge -c contigs-dbs/GCF_005121165.2-contigs.db -o profile-dbs/GCF_005121165.2-merged-profile -S GCF_005121165_2 --skip-hierarchical-clustering profile-dbs/FLT_ISS-T_Rep1_F3-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/FLT_ISS-T_Rep2_F4-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/FLT_ISS-T_Rep3_F5-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/FLT_ISS-T_Rep4_F7-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/FLT_ISS-T_Rep5_F8-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/FLT_ISS-T_Rep6_F9-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/FLT_ISS-T_Rep7_F10-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/FLT_LAR_Rep1_F1-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/FLT_LAR_Rep2_F2-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/FLT_LAR_Rep3_F3-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/FLT_LAR_Rep4_F4-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/FLT_LAR_Rep5_F5-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/FLT_LAR_Rep6_F6-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/FLT_LAR_Rep7_F7-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/FLT_LAR_Rep8_F9-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/FLT_LAR_Rep9_F10-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/GC_ISS-T_Rep1_G2-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/GC_ISS-T_Rep2_G3-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/GC_ISS-T_Rep3_G4-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/GC_ISS-T_Rep4_G5-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/GC_ISS-T_Rep5_G6-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/GC_ISS-T_Rep6_G7-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/GC_ISS-T_Rep7_G8-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/GC_ISS-T_Rep8_G9-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/GC_ISS-T_Rep9_G10-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/GC_LAR_Rep1_G2-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/GC_LAR_Rep2_G3-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/GC_LAR_Rep3_G4-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/GC_LAR_Rep4_G5-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/GC_LAR_Rep5_G8-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/GC_LAR_Rep6_G9-to-GCF_005121165.2-profile/PROFILE.db profile-dbs/GC_LAR_Rep7_G10-to-GCF_005121165.2-profile/PROFILE.db
+[08 May 22 19:49:58] clustering_performed .........................: False
+[08 May 22 19:49:58] 
+WARNING
+===============================================
+Codon frequencies were not profiled, hence, these tables will be empty in the
+merged profile database.
+
+
+[08 May 22 19:50:01] * Anvi'o hierarchical clustering of contigs...
+
+[08 May 22 19:50:01] * Additional data and layer orders...
+
+[08 May 22 19:50:01] 
+Layer orders added
+===============================================
+
+[08 May 22 19:50:01] * std_coverage
+
+[08 May 22 19:50:01] * mean_coverage
+
+[08 May 22 19:50:01] * mean_coverage_Q2Q3
+
+[08 May 22 19:50:01] * detection
+
+[08 May 22 19:50:01] * abundance
+
+[08 May 22 19:50:01] * variability
+
+[08 May 22 19:50:01] 
+Data groups added
+===============================================
+
+[08 May 22 19:50:01] * default (w/4 items)
+
+[08 May 22 19:50:01] * Happy 
+
+[08 May 22 19:50:01] Bye.
