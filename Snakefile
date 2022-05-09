@@ -143,7 +143,7 @@ rule mapping:
     input:
         index_built_trigger = os.path.join(config["bowtie2_indexes_dir"], "{genome}.1.bt2"),
         R1 = os.path.join(config["reads_dir"] + "{sample}" + config["read_R1_suffix"]),
-        R2 = os.path.join(config["reads_dir"] + "{sample}" + config["read_R1_suffix"])
+        R2 = os.path.join(config["reads_dir"] + "{sample}" + config["read_R2_suffix"])
     output:
         bam = os.path.join(config["bam_files_dir"] + "{sample}-to-{genome}.bam")
     params:
@@ -192,7 +192,7 @@ rule anvi_merge_and_summarize:
         """
         name=$(printf {wildcards.genome} | tr "[\-.]" "_")
 
-        anvi-merge -c {input.contigs_db} -o {params.merged_profile_dir} -S ${{name}} --skip-hierarchical-clustering {input.profiles} > {log} 2>&1
+        anvi-merge -c {input.contigs_db} -o {params.merged_profile_dir} -S ${{name}} --skip-hierarchical-clustering {input.profiles} --overwrite-output-destinations > {log} 2>&1
         
         # getting split default order
         anvi-export-table --table splits_basic_info -f split {input.contigs_db} -o {wildcards.genome}-split-order.tmp > {log} 2>&1
@@ -202,6 +202,7 @@ rule anvi_merge_and_summarize:
 
         # adding to merged profile db
         anvi-import-items-order -i {wildcards.genome}-split-order.txt -p {output.merged_profile} --make-default --name default > {log} 2>&1
+        rm {wildcards.genome}-split-order.txt
 
         # adding default collection
         anvi-script-add-default-collection -p {output.merged_profile} -c {input.contigs_db} > {log} 2>&1
