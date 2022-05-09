@@ -1,0 +1,68 @@
+######################################################################
+## Config file for Lee and O'Rourke et al. ISS Staph anvio workflow ##
+######################################################################
+
+######################################### NOTE #############################################
+# Due to difficulties in setting up anvio conda environment, the workflow is meant to be run
+# in an active anvio environment, rather than being handled by snakemake. It was setup
+# as described here: https://hackmd.io/@astrobiomike/GLDS-249-Nick-2-genome-probing
+############################################################################################
+
+# file holding unique genome IDs
+genome_IDs_file:
+    "genome-IDs.txt"
+
+# file holding unique sample IDs
+sample_IDs_file:
+    "sample-IDs.txt"
+
+# threads for bowtie2 and samtools processes (may be multiplied by number of concurrent jobs running)
+mapping_threads:
+    20
+
+# threads used in parallelizable distint anvio steps (may be multiplied by the number of concurrent jobs running)
+general_anvio_threads:
+    20
+
+# path to reads directory
+reads_dir:
+    "reads/"
+
+# read suffixes
+read_R1_suffix:
+    "_R1_raw.fastq.gz"
+
+read_R2_suffix:
+    "_R2_raw.fastq.gz"
+
+# path to genbank files dir
+genbank_files_dir:
+    "ref-genome-genbank-files/"
+
+# anvio COGs data dir
+anvio_COGs_dir:
+    "~/ref-dbs/anvio/COGs/"
+
+# anvio KOs data dir
+anvio_KOs_dir:
+    "~/ref-dbs/anvio/KOs/"
+
+
+## the following directories will be created and populated by the workflow
+logs_dir:
+    "logs/"
+
+input_anvio_files_dir:
+    "input-files-for-anvio/"
+
+bam_files_dir:
+    "bam-files/"
+
+bowtie2_indexes_dir:
+    "bowtie2-indexes/"
+
+contigs_dbs_dir:
+    "contigs-dbs/"
+
+profile_dbs_dir:
+    "profile-dbs/"
